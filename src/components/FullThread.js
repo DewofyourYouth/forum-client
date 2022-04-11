@@ -21,14 +21,17 @@ export default function FullThread() {
   return (
     <div className="main-container full-thread">
       <h2>{thread.title}</h2>
-      <small>Authored by: {thread.author}</small>
+      <small>
+        Authored by: {thread.author} @{" "}
+        {new Date(thread.created_at).toUTCString()}
+      </small>
       <p>{thread.content}</p>
       {thread.comments.map((comment) => (
         <div className="comment" key={comment?.id}>
           <h4>{comment?.title}</h4>
           <p>{comment?.content}</p>
           <small>
-            - {comment.user__username} @
+            - {comment.user__username} @{" "}
             {new Date(comment.created_at).toUTCString()}
           </small>
         </div>
