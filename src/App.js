@@ -19,7 +19,7 @@ function App() {
   if (threads.length === 0) return <div>Loading...</div>;
 
   return (
-    <div>
+    <div className="main-container">
       {threads.map((thread) => (
         <ThreadListItem key={thread.id} thread={thread} />
       ))}

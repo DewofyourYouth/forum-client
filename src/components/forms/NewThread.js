@@ -1,6 +1,6 @@
 import { useStore } from "../../store";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const postNewThread = async (token, title, content) => {
   const call = await fetch("http://localhost:8000/threads/new-thread", {
@@ -18,12 +18,11 @@ export default function NewThread() {
   const { token } = useStore((state) => state);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  console.log(token);
   const submitNewThread = async (e) => {
     e.preventDefault();
     const myThreadPost = await postNewThread(token, title, content);
     const result = await myThreadPost.json();
-    console.log(result);
+    alert(result.message);
   };
   if (!token)
     return (

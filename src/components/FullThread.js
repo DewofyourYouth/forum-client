@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import NewComment from "./forms/NewComment";
 
 const fetchFullThread = async (threadId) => {
   const call = await fetch(
@@ -18,7 +19,7 @@ export default function FullThread() {
   }, [threadId]);
   if (!thread) return <div>Loading...</div>;
   return (
-    <div className="full-thread">
+    <div className="main-container full-thread">
       <h2>{thread.title}</h2>
       <small>Authored by: {thread.author}</small>
       <p>{thread.content}</p>
@@ -29,6 +30,7 @@ export default function FullThread() {
           <small>{comment.user__username}</small>
         </div>
       ))}
+      <NewComment threadId={thread.id} />
     </div>
   );
 }
