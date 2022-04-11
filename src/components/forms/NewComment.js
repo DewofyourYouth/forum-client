@@ -23,7 +23,7 @@ export default function NewComment({ threadId }) {
   const [content, setContent] = useState("");
   const submitNewComment = async (e) => {
     e.preventDefault();
-    const myCommentPost = await postNewComment(token, threadId, title, content);
+    return await postNewComment(token, threadId, title, content);
   };
   if (!token)
     return (

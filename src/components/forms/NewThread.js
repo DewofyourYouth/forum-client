@@ -20,9 +20,7 @@ export default function NewThread() {
   const [content, setContent] = useState("");
   const submitNewThread = async (e) => {
     e.preventDefault();
-    const myThreadPost = await postNewThread(token, title, content);
-    const result = await myThreadPost.json();
-    alert(result.message);
+    return await postNewThread(token, title, content);
   };
   if (!token)
     return (
