@@ -27,7 +27,10 @@ export default function FullThread() {
         <div className="comment" key={comment?.id}>
           <h4>{comment?.title}</h4>
           <p>{comment?.content}</p>
-          <small>- {comment.user__username}</small>
+          <small>
+            - {comment.user__username} @
+            {new Date(comment.created_at).toUTCString()}
+          </small>
         </div>
       ))}
       <NewComment threadId={thread.id} />
