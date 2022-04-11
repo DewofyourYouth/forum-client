@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState, useEffect } from "react";
+import ThreadListItem from "./components/ThreadListItem";
+import NewThread from "./components/forms/NewThread";
+
+const getThreads = async () => {
+  const call = await fetch("http://localhost:8000/threads/threads/");
+  return await call.json();
+};
 
 function App() {
+  const [threads, setThreads] = useState([]);
+  useEffect(() => {
+    const threads = getThreads().then((res) => {
+      setThreads(res);
+    });
+  }, []);
+
+  if (threads.length === 0) return <div>Loading...</div>;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {threads.map((thread) => (
+        <ThreadListItem key={thread.id} thread={thread} />
+      ))}
+      <hr />
+      <NewThread />
     </div>
   );
 }
