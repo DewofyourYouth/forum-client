@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { DeleteThread } from "./DeleteButtons";
 
 export default function ThreadListItem({ thread }) {
   return (
@@ -8,6 +9,7 @@ export default function ThreadListItem({ thread }) {
       </h3>
       <small>{new Date(thread.created_at).toUTCString()}</small>
       <p>{thread.content}</p>
+      <DeleteThread threadId={thread.id} />
     </div>
   );
 }

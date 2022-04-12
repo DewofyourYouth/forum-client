@@ -1,6 +1,7 @@
 import { useStore } from "../../store";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { getThreads } from "../../App";
 
 const postNewComment = async (token, thread_id, title, content) => {
   const call = await fetch(
@@ -21,9 +22,8 @@ export default function NewComment({ threadId }) {
   const { token } = useStore((state) => state);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const submitNewComment = async (e) => {
-    e.preventDefault();
-    return await postNewComment(token, threadId, title, content);
+  const submitNewComment = async () => {
+    const post = await postNewComment(token, threadId, title, content);
   };
   if (!token)
     return (
@@ -48,7 +48,7 @@ export default function NewComment({ threadId }) {
         onChange={(e) => setContent(e.target.value)}
       />
       <br />
-      <button onClick={(e) => submitNewComment(e)}>Submit</button>
+      <button onClick={submitNewComment}>Submit</button>
     </div>
   );
 }

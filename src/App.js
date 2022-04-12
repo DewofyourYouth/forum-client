@@ -1,22 +1,22 @@
 import "./App.css";
 import { useState, useEffect } from "react";
+import { useStore } from "./store";
 import ThreadListItem from "./components/ThreadListItem";
 import NewThread from "./components/forms/NewThread";
 
-const getThreads = async () => {
+export const getThreads = async () => {
   const call = await fetch("http://localhost:8000/threads/threads/");
   return await call.json();
 };
 
 function App() {
-  const [threads, setThreads] = useState([]);
+  const { threads, setThreadsStore } = useStore((state) => state);
   useEffect(() => {
-    const threads = getThreads().then((res) => {
-      setThreads(res);
+    getThreads().then((res) => {
+      if (res == threads) return;
+      setThreadsStore(res);
     });
   }, []);
-
-  if (threads.length === 0) return <div>Loading...</div>;
 
   return (
     <div className="main-container">

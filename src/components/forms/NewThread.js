@@ -1,9 +1,10 @@
 import { useStore } from "../../store";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { getThreads } from "../../App";
 
 const postNewThread = async (token, title, content) => {
-  const call = await fetch("http://localhost:8000/threads/new-thread", {
+  return await fetch("http://localhost:8000/threads/new-thread", {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -15,12 +16,17 @@ const postNewThread = async (token, title, content) => {
 };
 
 export default function NewThread() {
-  const { token } = useStore((state) => state);
+  const { token, threads, setThreadsStore } = useStore((state) => state);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const submitNewThread = async (e) => {
     e.preventDefault();
-    return await postNewThread(token, title, content);
+    const post = await postNewThread(token, title, content);
+    console.log(post.status);
+    if (post.status === 200) {
+      const newThreads = await getThreads();
+      setThreadsStore(newThreads);
+    }
   };
   if (!token)
     return (
