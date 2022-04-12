@@ -45,23 +45,19 @@ export default function NewThread() {
           <tbody>
             <tr>
               <td>
-                <label htmlFor="title">Title</label>
-              </td>
-              <td>
                 <input
                   id="title"
                   value={title}
+                  placeholder={"Title Here."}
                   onChange={(e) => setTitle(e.target.value)}
                 ></input>
               </td>
             </tr>
             <tr>
               <td>
-                <label htmlFor="content">Content</label>
-              </td>
-              <td>
                 <textarea
                   id="content"
+                  placeholder="Type the body here."
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   rows="10"
@@ -70,7 +66,7 @@ export default function NewThread() {
               </td>
             </tr>
             <tr>
-              <td colSpan="2">
+              <td>
                 <button onClick={(e) => submitNewThread(e)}>Submit</button>
               </td>
             </tr>
