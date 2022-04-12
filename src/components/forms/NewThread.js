@@ -19,8 +19,7 @@ export default function NewThread() {
   const { token, setThreadsStore } = useStore((state) => state);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const submitNewThread = async (e) => {
-    e.preventDefault();
+  const submitNewThread = async () => {
     const post = await postNewThread(token, title, content);
     console.log(post.status);
     if (post.status === 200) {
@@ -39,40 +38,25 @@ export default function NewThread() {
 
   return (
     <div>
-      <form>
-        <h3>New Thread Form</h3>
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <input
-                  id="title"
-                  value={title}
-                  placeholder={"Title Here."}
-                  onChange={(e) => setTitle(e.target.value)}
-                ></input>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <textarea
-                  id="content"
-                  placeholder="Type the body here."
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  rows="10"
-                  cols="30"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button onClick={(e) => submitNewThread(e)}>Submit</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
+      <h3>New Thread Form</h3>
+
+      <input
+        id="title"
+        value={title}
+        placeholder={"Title Here."}
+        onChange={(e) => setTitle(e.target.value)}
+      ></input>
+      <br />
+      <textarea
+        id="content"
+        placeholder="Type the body here."
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        rows="10"
+        cols="30"
+      />
+      <br />
+      <button onClick={submitNewThread}>Submit</button>
     </div>
   );
 }
