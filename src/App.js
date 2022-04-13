@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useStore } from "./store";
 import ThreadListItem from "./components/ThreadListItem";
 import NewThread from "./components/forms/NewThread";
@@ -13,7 +13,7 @@ function App() {
   const { threads, setThreadsStore } = useStore((state) => state);
   useEffect(() => {
     getThreads().then((res) => {
-      if (res == threads) return;
+      if (res === threads) return;
       setThreadsStore(res);
     });
   }, []);

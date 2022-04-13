@@ -1,21 +1,17 @@
 import { useStore } from "../../store";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { getThreads } from "../../App";
 
 const postNewComment = async (token, thread_id, title, content) => {
-  const call = await fetch(
-    `http://localhost:8000/threads/new-comment/${thread_id}`,
-    {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Token ${token.token}`,
-      },
-      method: "POST",
-      body: JSON.stringify({ title, content }),
-    }
-  );
+  return await fetch(`http://localhost:8000/threads/new-comment/${thread_id}`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Token ${token.token}`,
+    },
+    method: "POST",
+    body: JSON.stringify({ title, content }),
+  });
 };
 
 export default function NewComment({ threadId }) {
@@ -23,7 +19,7 @@ export default function NewComment({ threadId }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const submitNewComment = async () => {
-    const post = await postNewComment(token, threadId, title, content);
+    return await postNewComment(token, threadId, title, content);
   };
   if (!token)
     return (

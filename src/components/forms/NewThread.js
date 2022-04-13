@@ -21,7 +21,6 @@ export default function NewThread() {
   const [content, setContent] = useState("");
   const submitNewThread = async () => {
     const post = await postNewThread(token, title, content);
-    console.log(post.status);
     if (post.status === 200) {
       const newThreads = await getThreads();
       setThreadsStore(newThreads);
